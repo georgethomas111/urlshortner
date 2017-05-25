@@ -33,6 +33,10 @@ func redirect(w http.ResponseWriter, r *http.Request) {
 func add(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	longURL := vars["longurl"]
+	// FIXME Adding default protocol.
+	// TODO Accept the protocol from user instead of assuming.
+	protocol := "https://"
+	longURL = protocol + longURL
 
 	var tinyURL string
 	var err error

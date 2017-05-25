@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+        couchdb:
+                image: couchdb
+                ports: 
+                - "5984:5984"
+        urlshortner:
+                build: ../
+                ports:
+                - "8080:8080"
+                depends_on:
+                - couchdb
