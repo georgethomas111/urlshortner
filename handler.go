@@ -22,6 +22,10 @@ const urlLength = 9
 func redirect(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	tinyURL := vars["tinyurl"]
+	if tinyURL == "status" {
+		w.Write([]byte("ok"))
+		return
+	}
 	longURL, err := hFactory.GetURL(tinyURL)
 	if err != nil {
 		//FIXME Establish the right method to log errors.
@@ -29,7 +33,6 @@ func redirect(w http.ResponseWriter, r *http.Request) {
 	}
 	http.Redirect(w, r, longURL, http.StatusMovedPermanently)
 }
-
 func add(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	longURL := vars["longurl"]
